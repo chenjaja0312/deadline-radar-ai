@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeadlineRadar AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="tag">Java + SQLite + Frontend + DM/ML</p>
+      <h1>DeadlineRadar AI</h1>
+      <p>期末任務風險預測系統：輸入作業、期限與狀態，系統會即時分析風險並給出行動建議。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid cards" id="dashboard"></section>
+
+    <section class="panel">
+      <h2>新增任務</h2>
+      <form id="assignmentForm">
+        <input name="course" placeholder="課程，例如：計算機概論" required />
+        <input name="title" placeholder="任務名稱，例如：Hackathon 專題" required />
+        <label>截止日期 <input name="deadline" type="date" required /></label>
+        <label>難度 1-5 <input name="difficulty" type="number" min="1" max="5" value="3" required /></label>
+        <label>完成度 0-100 <input name="progress" type="number" min="0" max="100" value="20" required /></label>
+        <label>預估時數 <input name="estimatedHours" type="number" min="1" max="10" value="4" required /></label>
+        <label>目前心情 1-5 <input name="mood" type="number" min="1" max="5" value="3" required /></label>
+        <button type="submit">分析並儲存</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>任務風險列表</h2>
+        <button onclick="loadAll()">重新整理</button>
+      </div>
+      <div id="list" class="list"></div>
+    </section>
+
+    <section class="panel architecture">
+      <h2>系統資料流</h2>
+      <p><strong>Frontend</strong> 透過 fetch 呼叫 <strong>Spring Boot REST API</strong>，後端把資料存進 <strong>SQLite</strong>，再交給 <strong>RiskEngine DM/ML 模組</strong> 做風險分類，最後回傳給網頁顯示。</p>
+      <div class="flow">HTML/CSS/JS → REST API → SQLite DB → RiskEngine → Dashboard</div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
